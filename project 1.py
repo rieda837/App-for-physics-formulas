@@ -11,7 +11,7 @@ class First_Wind(QMainWindow, QWidget):
         self.start()
         self.screen()
         self.center()
-        self.sp_checked = []
+        self.set_checked = set()
 
     def screen(self):
         self.screen = self.palette()
@@ -383,14 +383,14 @@ class Choose(First_Wind):
             for i in range(len(self.sp_kin)):
                 self.sp_kin[i].show()
                 if self.sp_kin[i].isChecked():
-                    self.sp_checked.append(self.sp_kin[i].text())
+                    self.set_checked.add(self.sp_kin[i].text())
         else:
             self.kinem.setStyleSheet("color: yellow")
             for i in range(len(self.sp_kin)):
                 self.sp_kin[i].hide()
-        if len(self.sp_checked) != 0:
+        if len(self.set_checked) != 0:
             self.l_label_dis.setText('')
-            for el in self.sp_checked:
+            for el in self.set_checked:
                 a = self.l_label_dis.text() + el + '; ' if self.l_label_dis.text() != '' else el + '; '
                 self.l_label_dis.setText(a)
                 self.l_label_dis.adjustSize()
@@ -406,15 +406,23 @@ class Choose(First_Wind):
             self.din_label_gravit.show()
             self.din_label_save.show()
             for i in range(len(self.sp_dinam)):
+                if self.sp_dinam[i].isChecked():
+                    self.set_checked.add(self.sp_dinam[i].text())
                 self.sp_dinam[i].show()
         else:
             self.dinam.setStyleSheet("color: yellow")
             self.din_label_gravit.hide()
             self.din_label_save.hide()
             for i in range(len(self.sp_dinam)):
-                if self.sp_dinam[i].isChecked():
-                    self.sp_checked.append(self.sp_dinam[i])
                 self.sp_dinam[i].hide()
+        if len(self.set_checked) != 0:
+            self.l_label_dis.setText('')
+            for el in self.set_checked:
+                a = self.l_label_dis.text() + el + '; ' if self.l_label_dis.text() != '' else el + '; '
+                self.l_label_dis.setText(a)
+                self.l_label_dis.adjustSize()
+        else:
+            self.l_label_dis.setText('Здесь будут отображаться выбранные Вами темы')
 
     def hide_stat(self):
         if self.stat.isChecked():
@@ -429,7 +437,7 @@ class Choose(First_Wind):
             for i in range(len(self.sp_stat)):
                 self.sp_stat[i].hide()
                 if self.sp_stat[i].isChecked():
-                    self.sp_checked.append(self.sp_stat[i])
+                    self.set_checked.add(self.sp_stat[i].text())
 
     def hide_base_con(self):
         if self.base_concept.isChecked():
@@ -444,7 +452,7 @@ class Choose(First_Wind):
             for i in range(len(self.sp_bc)):
                 self.sp_bc[i].hide()
                 if self.sp_bc[i].isChecked():
-                    self.sp_checked.append(self.sp_bc[i])
+                    self.set_checked.add(self.sp_bc[i])
 
     def hide_thermal(self):
         if self.themes.currentText() == 'Тепловые явления;':
