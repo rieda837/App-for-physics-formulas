@@ -11,6 +11,7 @@ class First_Wind(QMainWindow, QWidget):
         self.start()
         self.screen()
         self.center()
+        self.sp_checked = []
 
     def screen(self):
         self.screen = self.palette()
@@ -143,6 +144,13 @@ class Choose(First_Wind):
         self.sp_main = [self.mechanic, self.thermal, self.fluctuation,
                         self.electicial, self.opt, self.atom]
 
+        self.s_label_dis = QLabel(self)
+        self.s_label_dis.move(300, 530)
+        self.s_label_dis.setText('Здесь будут отображаться выбранные Вами темы')
+        self.s_label_dis.setStyleSheet("color: gray")
+        self.s_label_dis.setFont(QtGui.QFont("Times", 10))
+        self.s_label_dis.adjustSize()
+
     def mechanic(self):
         self.kinem = QCheckBox(self)
         self.kinem.move(80, 90)
@@ -176,8 +184,18 @@ class Choose(First_Wind):
         self.kin_uni_circ.stateChanged.connect(self.hide_kin)
         self.kin_uni_circ.setText('Равномерное движение точки по окружности')
 
+        self.kin_up = QCheckBox(self)
+        self.kin_up.move(60, 280)
+        self.kin_up.stateChanged.connect(self.hide_kin)
+        self.kin_up.setText('Тело, брошенное вверх')
+
+        self.kin_down = QCheckBox(self)
+        self.kin_down.move(60, 310)
+        self.kin_down.stateChanged.connect(self.hide_kin)
+        self.kin_down.setText('Тело, брошенное вниз')
+
         self.sp_kin = [self.all_m, self.kin_uni_lin_motion, self.kin_uni_accel_motion, self.kin_uni_circ,
-                       self.kin_aver_speed]
+                       self.kin_aver_speed, self.kin_up, self.kin_down]
 
         self.dinam = QCheckBox(self)
         self.dinam.move(280, 90)
@@ -360,7 +378,12 @@ class Choose(First_Wind):
         else:
             self.kinem.setStyleSheet("color: yellow")
             for i in range(len(self.sp_kin)):
+                if self.sp_kin[i].isChecked():
+                    self.sp_checked.append(self.sp_kin[i])
                 self.sp_kin[i].hide()
+        if len(self.sp_checked) != 0:
+            for el in self.sp_checked:
+                self.s_label_dis.setText(el.text())
 
     def hide_dinam(self):
         if self.dinam.isChecked():
@@ -377,6 +400,8 @@ class Choose(First_Wind):
             self.din_label_gravit.hide()
             self.din_label_save.hide()
             for i in range(len(self.sp_dinam)):
+                if self.sp_dinam[i].isChecked():
+                    self.sp_checked.append(self.sp_dinam[i])
                 self.sp_dinam[i].hide()
 
     def hide_stat(self):
@@ -391,6 +416,8 @@ class Choose(First_Wind):
             self.stat.setStyleSheet("color: yellow")
             for i in range(len(self.sp_stat)):
                 self.sp_stat[i].hide()
+                if self.sp_stat[i].isChecked():
+                    self.sp_checked.append(self.sp_stat[i])
 
     def hide_base_con(self):
         if self.base_concept.isChecked():
@@ -404,6 +431,8 @@ class Choose(First_Wind):
             self.base_concept.setStyleSheet("color: yellow")
             for i in range(len(self.sp_bc)):
                 self.sp_bc[i].hide()
+                if self.sp_bc[i].isChecked():
+                    self.sp_checked.append(self.sp_bc[i])
 
     def hide_thermal(self):
         if self.themes.currentText() == 'Тепловые явления;':
