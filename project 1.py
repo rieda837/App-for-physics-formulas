@@ -144,12 +144,19 @@ class Choose(First_Wind):
         self.sp_main = [self.mechanic, self.thermal, self.fluctuation,
                         self.electicial, self.opt, self.atom]
 
-        self.s_label_dis = QLabel(self)
-        self.s_label_dis.move(300, 530)
-        self.s_label_dis.setText('Здесь будут отображаться выбранные Вами темы')
-        self.s_label_dis.setStyleSheet("color: gray")
-        self.s_label_dis.setFont(QtGui.QFont("Times", 10))
-        self.s_label_dis.adjustSize()
+        self.l_label_dis = QLabel(self)
+        self.l_label_dis.move(220, 530)
+        self.l_label_dis.resize(200, 500)
+        self.l_label_dis.setText('Здесь будут отображаться выбранные Вами темы')
+        self.l_label_dis.setStyleSheet("color: black")
+        self.l_label_dis.setFont(QtGui.QFont("Times", 10))
+        self.l_label_dis.adjustSize()
+
+        self.l_scroll_dis = QScrollArea(self)
+        self.l_scroll_dis.move(220, 530)
+        self.l_scroll_dis.resize(770, 60)
+        self.l_scroll_dis.setBackgroundRole(QPalette.Dark)
+        self.l_scroll_dis.setWidget(self.l_label_dis)
 
     def mechanic(self):
         self.kinem = QCheckBox(self)
@@ -375,15 +382,20 @@ class Choose(First_Wind):
             self.kinem.setStyleSheet("color: gray")
             for i in range(len(self.sp_kin)):
                 self.sp_kin[i].show()
+                if self.sp_kin[i].isChecked():
+                    self.sp_checked.append(self.sp_kin[i].text())
         else:
             self.kinem.setStyleSheet("color: yellow")
             for i in range(len(self.sp_kin)):
-                if self.sp_kin[i].isChecked():
-                    self.sp_checked.append(self.sp_kin[i])
                 self.sp_kin[i].hide()
         if len(self.sp_checked) != 0:
+            self.l_label_dis.setText('')
             for el in self.sp_checked:
-                self.s_label_dis.setText(el.text())
+                a = self.l_label_dis.text() + el + '; ' if self.l_label_dis.text() != '' else el + '; '
+                self.l_label_dis.setText(a)
+                self.l_label_dis.adjustSize()
+        else:
+            self.l_label_dis.setText('Здесь будут отображаться выбранные Вами темы')
 
     def hide_dinam(self):
         if self.dinam.isChecked():
