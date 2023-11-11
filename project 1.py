@@ -18,31 +18,33 @@ class First_Wind(QMainWindow, QWidget):
         self.screen.setColor(QPalette.Window, QColor(35, 35, 35))
         self.setPalette(self.screen)
         self.setGeometry(600, 1000, 1000, 600)
-        self.setWindowTitle('Название приложения')
+        self.setWindowTitle("Название приложения")
         self.center()
 
     def start(self):
         self.learn = QPushButton(self)
         self.learn.move(490, 200)
         self.learn.resize(200, 100)
-        self.learn.setText('Учить формулы')
+        self.learn.setText("Учить формулы")
         self.learn.setFont(QtGui.QFont("Times", 11, QtGui.QFont.Bold))
         self.learn.clicked.connect(self.open_choose)
 
         self.search = QPushButton(self)
         self.search.move(200, 200)
         self.search.resize(200, 100)
-        self.search.setText('Искать формулы')
+        self.search.setText("Искать формулы")
         self.search.setFont(QtGui.QFont("Times", 11, QtGui.QFont.Bold))
         self.search.clicked.connect(self.open_search)
 
         self.intro = QLabel(self)
         self.intro.move(100, 100)
         self.intro.resize(800, 100)
-        self.intro.setText('Приветствую! В этом приложении Вы можете найти все формулы \n'
-                           'из всего классического школьного курса Физики до 9 класса и подготовки к ОГЭ. '
-                           '\nТакже это приложение поможет Вам найти формулы\n для решения задач '
-                           'по известным величинам.')
+        self.intro.setText(
+            "Приветствую! В этом приложении Вы можете найти все формулы \n"
+            "из всего классического школьного курса Физики до 9 класса и подготовки к ОГЭ. "
+            "\nТакже это приложение поможет Вам найти формулы\n для решения задач "
+            "по известным величинам."
+        )
         self.intro.setStyleSheet("color: yellow")
         self.intro.setFont(QtGui.QFont("Times", 11, QtGui.QFont.Bold))
 
@@ -80,7 +82,7 @@ class Search_form(First_Wind):
     def back(self):
         self.back_btn = QPushButton(self)
         self.back_btn.move(10, 10)
-        self.back_btn.setText('<--')
+        self.back_btn.setText("<--")
         self.back_btn.clicked.connect(self.back_activ)
 
     def back_activ(self):
@@ -114,40 +116,62 @@ class Choose(First_Wind):
         self.themes = QComboBox(self)
         self.themes.setGeometry(70, 230, 230, 70)
         self.themes.move(750, 10)
-        self.themes.addItems(['-Выберете тему-', 'Механика;', 'Тепловые явления;',
-                              'Электричество и\nмагнетизм;', 'Колебания и волны;', 'Оптика;',
-                              'Атомная и ядерная физика;'])
+        self.themes.addItems(
+            [
+                "-Выберете тему-",
+                "Механика;",
+                "Тепловые явления;",
+                "Электричество и\nмагнетизм;",
+                "Колебания и волны;",
+                "Оптика;",
+                "Атомная и ядерная физика;",
+            ]
+        )
         self.themes.setFont(QtGui.QFont("Times", 9, QtGui.QFont.Bold))
-        self.themes.setStyleSheet("QComboBox {\n"
-                                  "    border: 2px solid #ffff00;\n"
-                                  "    background-color: #555555;\n"
-                                  "    color: white;\n"
-                                  "    padding-left: 35px;\n"
-                                  "}\n"
-                                  "\n"
-                                  "QComboBox QListView {\n"
-                                  "    border: 2px solid #ffff00;\n"
-                                  "    background-color: #555555;\n"
-                                  "    border-radius: 2px;\n"
-                                  "    selection-background-color: #222222;\n"
-                                  "}\n"
-                                  "\n")
-        for el in [self.hide_mech, self.hide_thermal, self.hide_electicity, self.hide_fluct, self.hide_atomic]:
+        self.themes.setStyleSheet(
+            "QComboBox {\n"
+            "    border: 2px solid #ffff00;\n"
+            "    background-color: #555555;\n"
+            "    color: white;\n"
+            "    padding-left: 35px;\n"
+            "}\n"
+            "\n"
+            "QComboBox QListView {\n"
+            "    border: 2px solid #ffff00;\n"
+            "    background-color: #555555;\n"
+            "    border-radius: 2px;\n"
+            "    selection-background-color: #222222;\n"
+            "}\n"
+            "\n"
+        )
+        for el in [
+            self.hide_mech,
+            self.hide_thermal,
+            self.hide_electicity,
+            self.hide_fluct,
+            self.hide_atomic,
+        ]:
             self.themes.activated.connect(el)
         self.f_show = QPushButton(self)
         self.f_show.move(20, 530)
         self.f_show.resize(190, 50)
-        self.f_show.setText('Показать формулы')
+        self.f_show.setText("Показать формулы")
         self.f_show.setFont(QtGui.QFont("Times", 9, QtGui.QFont.Bold))
         self.f_show.clicked.connect(self.form_s)
 
-        self.sp_main = [self.mechanic, self.thermal, self.fluctuation,
-                        self.electicial, self.opt, self.atom]
+        self.sp_main = [
+            self.mechanic,
+            self.thermal,
+            self.fluctuation,
+            self.electicial,
+            self.opt,
+            self.atom,
+        ]
 
         self.l_label_dis = QLabel(self)
         self.l_label_dis.move(220, 530)
         self.l_label_dis.resize(200, 500)
-        self.l_label_dis.setText('Здесь будут отображаться выбранные Вами темы')
+        self.l_label_dis.setText("Здесь будут отображаться выбранные Вами темы")
         self.l_label_dis.setStyleSheet("color: black")
         self.l_label_dis.setFont(QtGui.QFont("Times", 10))
         self.l_label_dis.adjustSize()
@@ -162,71 +186,80 @@ class Choose(First_Wind):
         self.kinem = QCheckBox(self)
         self.kinem.move(80, 90)
         self.kinem.stateChanged.connect(self.hide_kin)
-        self.kinem.setText('Кинематика')
+        self.kinem.setText("Кинематика")
 
         self.all_m = QCheckBox(self)
         self.all_m.move(80, 130)
         self.all_m.stateChanged.connect(self.hide_kin)
-        self.all_m.setText('Выбрать все')
+        self.all_m.setText("Выбрать все")
 
         self.kin_uni_lin_motion = QCheckBox(self)
         self.kin_uni_lin_motion.move(60, 160)
         self.kin_uni_lin_motion.stateChanged.connect(self.hide_kin)
-        self.kin_uni_lin_motion.setText('Равномерное прямолинейное движение') # v = s/t and x = x0 + Vx * t
+        self.kin_uni_lin_motion.setText(
+            "Равномерное прямолинейное движение"
+        )  # v = s/t and x = x0 + Vx * t
 
         self.kin_aver_speed = QCheckBox(self)
         self.kin_aver_speed.move(60, 190)
         self.kin_aver_speed.stateChanged.connect(self.hide_kin)
-        self.kin_aver_speed.setText('Средняя и средняя путевая скорость')
+        self.kin_aver_speed.setText("Средняя и средняя путевая скорость")
         # vсрп = L1 + L2 +... / t1+t2+... and vср = s / t
 
         self.kin_uni_accel_motion = QCheckBox(self)
         self.kin_uni_accel_motion.move(60, 220)
         self.kin_uni_accel_motion.stateChanged.connect(self.hide_kin)
-        self.kin_uni_accel_motion.setText('Равноускоренное прямолинейное движение')
+        self.kin_uni_accel_motion.setText("Равноускоренное прямолинейное движение")
         # a = v - v0 / t; s = v0t + at^2/2; x = x0 + vx0 * t + ax * t^2/2
 
         self.kin_uni_circ = QCheckBox(self)
         self.kin_uni_circ.move(60, 250)
         self.kin_uni_circ.stateChanged.connect(self.hide_kin)
-        self.kin_uni_circ.setText('Равномерное движение точки по окружности')
+        self.kin_uni_circ.setText("Равномерное движение точки по окружности")
 
         self.kin_up = QCheckBox(self)
         self.kin_up.move(60, 280)
         self.kin_up.stateChanged.connect(self.hide_kin)
-        self.kin_up.setText('Тело, брошенное вверх')
+        self.kin_up.setText("Тело, брошенное вверх")
 
         self.kin_down = QCheckBox(self)
         self.kin_down.move(60, 310)
         self.kin_down.stateChanged.connect(self.hide_kin)
-        self.kin_down.setText('Тело, брошенное вниз')
+        self.kin_down.setText("Тело, брошенное вниз")
 
-        self.sp_kin = [self.all_m, self.kin_uni_lin_motion, self.kin_uni_accel_motion, self.kin_uni_circ,
-                       self.kin_aver_speed, self.kin_up, self.kin_down]
+        self.sp_kin = [
+            self.all_m,
+            self.kin_uni_lin_motion,
+            self.kin_uni_accel_motion,
+            self.kin_uni_circ,
+            self.kin_aver_speed,
+            self.kin_up,
+            self.kin_down,
+        ]
 
         self.dinam = QCheckBox(self)
         self.dinam.move(280, 90)
         self.dinam.stateChanged.connect(self.hide_dinam)
-        self.dinam.setText('Динамика')
+        self.dinam.setText("Динамика")
 
         self.din_sec_law = QCheckBox(self)
         self.din_sec_law.move(280, 120)
         self.din_sec_law.stateChanged.connect(self.hide_dinam)
-        self.din_sec_law.setText('Второй закон Ньютона')
+        self.din_sec_law.setText("Второй закон Ньютона")
 
         self.din_elast = QCheckBox(self)
         self.din_elast.move(280, 150)
         self.din_elast.stateChanged.connect(self.hide_dinam)
-        self.din_elast.setText('Силы упругости')
+        self.din_elast.setText("Силы упругости")
 
         self.din_friction = QCheckBox(self)
         self.din_friction.move(280, 180)
         self.din_friction.stateChanged.connect(self.hide_dinam)
-        self.din_friction.setText('Силы трения')
+        self.din_friction.setText("Силы трения")
 
         self.din_label_gravit = QLabel(self)
         self.din_label_gravit.move(280, 225)
-        self.din_label_gravit.setText('Гравитационные силы')
+        self.din_label_gravit.setText("Гравитационные силы")
         self.din_label_gravit.setStyleSheet("color: white")
         self.din_label_gravit.setFont(QtGui.QFont("Times", 9))
         self.din_label_gravit.adjustSize()
@@ -235,21 +268,21 @@ class Choose(First_Wind):
         self.din_law_gravit = QCheckBox(self)
         self.din_law_gravit.move(280, 250)
         self.din_law_gravit.stateChanged.connect(self.hide_dinam)
-        self.din_law_gravit.setText('Закон всемирного тяготения и сила тяжести')
+        self.din_law_gravit.setText("Закон всемирного тяготения и сила тяжести")
 
         self.din_weight = QCheckBox(self)
         self.din_weight.move(280, 280)
         self.din_weight.stateChanged.connect(self.hide_dinam)
-        self.din_weight.setText('Вес')
+        self.din_weight.setText("Вес")
 
         self.din_cos_speed = QCheckBox(self)
         self.din_cos_speed.move(280, 310)
         self.din_cos_speed.stateChanged.connect(self.hide_dinam)
-        self.din_cos_speed.setText('Космические скорости')
+        self.din_cos_speed.setText("Космические скорости")
 
         self.din_label_save = QLabel(self)
         self.din_label_save.move(280, 355)
-        self.din_label_save.setText('Механические явления и законы сохранения')
+        self.din_label_save.setText("Механические явления и законы сохранения")
         self.din_label_save.setStyleSheet("color: white")
         self.din_label_save.setFont(QtGui.QFont("Times", 9))
         self.din_label_save.adjustSize()
@@ -258,66 +291,76 @@ class Choose(First_Wind):
         self.din_momentum = QCheckBox(self)
         self.din_momentum.move(280, 380)
         self.din_momentum.stateChanged.connect(self.hide_dinam)
-        self.din_momentum.setText('Импульс')
+        self.din_momentum.setText("Импульс")
 
         self.din_work = QCheckBox(self)
         self.din_work.move(280, 410)
         self.din_work.stateChanged.connect(self.hide_dinam)
-        self.din_work.setText('Механическая работа и мощность силы. КПД.')
+        self.din_work.setText("Механическая работа и мощность силы. КПД.")
 
         self.din_ener_kin = QCheckBox(self)
         self.din_ener_kin.move(280, 440)
         self.din_ener_kin.stateChanged.connect(self.hide_dinam)
-        self.din_ener_kin.setText('Кинетическая энергия')
+        self.din_ener_kin.setText("Кинетическая энергия")
 
         self.din_ener_pot = QCheckBox(self)
         self.din_ener_pot.move(280, 470)
         self.din_ener_pot.stateChanged.connect(self.hide_dinam)
-        self.din_ener_pot.setText('Потенциальная энергия')
+        self.din_ener_pot.setText("Потенциальная энергия")
 
         self.din_ener_save = QCheckBox(self)
         self.din_ener_save.move(280, 500)
         self.din_ener_save.stateChanged.connect(self.hide_dinam)
-        self.din_ener_save.setText('Закон сохранения энергии')
+        self.din_ener_save.setText("Закон сохранения энергии")
 
-        self.sp_dinam = [self.din_sec_law, self.din_law_gravit, self.din_cos_speed, self.din_elast,
-                         self.din_friction, self.din_weight, self.din_momentum, self.din_work,
-                         self.din_ener_kin, self.din_ener_pot, self.din_ener_save]
+        self.sp_dinam = [
+            self.din_sec_law,
+            self.din_law_gravit,
+            self.din_cos_speed,
+            self.din_elast,
+            self.din_friction,
+            self.din_weight,
+            self.din_momentum,
+            self.din_work,
+            self.din_ener_kin,
+            self.din_ener_pot,
+            self.din_ener_save,
+        ]
 
         self.stat = QCheckBox(self)
         self.stat.move(480, 90)
-        self.stat.setText('Статика')
+        self.stat.setText("Статика")
         self.stat.stateChanged.connect(self.hide_stat)
 
         self.st_moment = QCheckBox(self)
         self.st_moment.move(480, 120)
-        self.st_moment.setText('Момент силы')
+        self.st_moment.setText("Момент силы")
         self.st_moment.stateChanged.connect(self.hide_stat)
 
         self.st_law_bal = QCheckBox(self)
         self.st_law_bal.move(480, 150)
-        self.st_law_bal.setText('Правило равновесия рычагов')
+        self.st_law_bal.setText("Правило равновесия рычагов")
         self.st_law_bal.stateChanged.connect(self.hide_stat)
 
         self.cond = QCheckBox(self)
         self.cond.move(480, 180)
-        self.cond.setText('Два условия равновесия тел')
+        self.cond.setText("Два условия равновесия тел")
 
         self.sp_stat = [self.st_moment, self.st_law_bal, self.cond]
 
         self.base_concept = QCheckBox(self)
         self.base_concept.move(670, 90)
         self.base_concept.stateChanged.connect(self.hide_base_con)
-        self.base_concept.setText('Базовые понятия (7 класс)')
+        self.base_concept.setText("Базовые понятия (7 класс)")
 
         self.bc_press = QCheckBox(self)
         self.bc_press.move(670, 120)
-        self.bc_press.setText('Давление')
+        self.bc_press.setText("Давление")
         self.bc_press.stateChanged.connect(self.hide_base_con)
 
         self.bc_mass = QCheckBox(self)
         self.bc_mass.move(670, 150)
-        self.bc_mass.setText('Масса, объем, плотность')
+        self.bc_mass.setText("Масса, объем, плотность")
         self.bc_mass.stateChanged.connect(self.hide_base_con)
 
         self.sp_bc = [self.bc_press, self.bc_mass]
@@ -339,11 +382,11 @@ class Choose(First_Wind):
     def thermal(self):
         self.am_of_heat = QCheckBox(self)
         self.am_of_heat.move(100, 80)
-        self.am_of_heat.setText('Количество теплоты')
+        self.am_of_heat.setText("Количество теплоты")
 
         self.termo = QCheckBox(self)
         self.termo.move(330, 90)
-        self.termo.setText('Энергия топлива')
+        self.termo.setText("Энергия топлива")
 
         self.sp_thermal = [self.am_of_heat, self.termo]
         for i in range(len(self.sp_thermal)):
@@ -366,7 +409,7 @@ class Choose(First_Wind):
         pass
 
     def hide_mech(self):
-        if self.themes.currentText() == 'Механика;':
+        if self.themes.currentText() == "Механика;":
             for el in self.sp_mech:
                 el.show()
         else:
@@ -389,13 +432,17 @@ class Choose(First_Wind):
             for i in range(len(self.sp_kin)):
                 self.sp_kin[i].hide()
         if len(self.set_checked) != 0:
-            self.l_label_dis.setText('')
-            for el in self.set_checked:
-                a = self.l_label_dis.text() + el + '; ' if self.l_label_dis.text() != '' else el + '; '
+            self.l_label_dis.setText("")
+            for el in list(self.set_checked):
+                a = (
+                    self.l_label_dis.text() + el + "; "
+                    if self.l_label_dis.text() != ""
+                    else el + "; "
+                )
                 self.l_label_dis.setText(a)
                 self.l_label_dis.adjustSize()
         else:
-            self.l_label_dis.setText('Здесь будут отображаться выбранные Вами темы')
+            self.l_label_dis.setText("Здесь будут отображаться выбранные Вами темы")
 
     def hide_dinam(self):
         if self.dinam.isChecked():
@@ -416,13 +463,17 @@ class Choose(First_Wind):
             for i in range(len(self.sp_dinam)):
                 self.sp_dinam[i].hide()
         if len(self.set_checked) != 0:
-            self.l_label_dis.setText('')
-            for el in self.set_checked:
-                a = self.l_label_dis.text() + el + '; ' if self.l_label_dis.text() != '' else el + '; '
+            self.l_label_dis.setText("")
+            for el in list(self.set_checked):
+                a = (
+                    self.l_label_dis.text() + el + "; "
+                    if self.l_label_dis.text() != ""
+                    else el + "; "
+                )
                 self.l_label_dis.setText(a)
                 self.l_label_dis.adjustSize()
         else:
-            self.l_label_dis.setText('Здесь будут отображаться выбранные Вами темы')
+            self.l_label_dis.setText("Здесь будут отображаться выбранные Вами темы")
 
     def hide_stat(self):
         if self.stat.isChecked():
@@ -438,6 +489,18 @@ class Choose(First_Wind):
                 self.sp_stat[i].hide()
                 if self.sp_stat[i].isChecked():
                     self.set_checked.add(self.sp_stat[i].text())
+        if len(self.set_checked) != 0:
+            self.l_label_dis.setText("")
+            for el in list(self.set_checked):
+                a = (
+                    self.l_label_dis.text() + el + "; "
+                    if self.l_label_dis.text() != ""
+                    else el + "; "
+                )
+                self.l_label_dis.setText(a)
+                self.l_label_dis.adjustSize()
+        else:
+            self.l_label_dis.setText("Здесь будут отображаться выбранные Вами темы")
 
     def hide_base_con(self):
         if self.base_concept.isChecked():
@@ -452,10 +515,22 @@ class Choose(First_Wind):
             for i in range(len(self.sp_bc)):
                 self.sp_bc[i].hide()
                 if self.sp_bc[i].isChecked():
-                    self.set_checked.add(self.sp_bc[i])
+                    self.set_checked.add(self.sp_bc[i].text())
+        if len(self.set_checked) != 0:
+            self.l_label_dis.setText("")
+            for el in list(self.set_checked):
+                a = (
+                    self.l_label_dis.text() + el + "; "
+                    if self.l_label_dis.text() != ""
+                    else el + "; "
+                )
+                self.l_label_dis.setText(a)
+                self.l_label_dis.adjustSize()
+        else:
+            self.l_label_dis.setText("Здесь будут отображаться выбранные Вами темы")
 
     def hide_thermal(self):
-        if self.themes.currentText() == 'Тепловые явления;':
+        if self.themes.currentText() == "Тепловые явления;":
             for el in self.sp_thermal:
                 el.show()
         else:
@@ -482,7 +557,7 @@ class Choose(First_Wind):
     def back(self):
         self.back_btn = QPushButton(self)
         self.back_btn.move(10, 10)
-        self.back_btn.setText('<--')
+        self.back_btn.setText("<--")
         self.back_btn.clicked.connect(self.back_activ)
 
     def back_activ(self):
@@ -508,7 +583,7 @@ class Learn_formulas(First_Wind):
     def back(self):
         self.back_btn = QPushButton(self)
         self.back_btn.move(10, 10)
-        self.back_btn.setText('<--')
+        self.back_btn.setText("<--")
         self.back_btn.clicked.connect(self.back_activ)
 
     def back_activ(self):
@@ -521,7 +596,7 @@ def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     form = First_Wind()
     form.show()
