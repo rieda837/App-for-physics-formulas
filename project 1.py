@@ -11,7 +11,6 @@ class First_Wind(QMainWindow, QWidget):
         self.start()
         self.screen()
         self.center()
-        self.set_checked = list()
 
     def screen(self):
         self.scr = self.palette()
@@ -67,6 +66,12 @@ class First_Wind(QMainWindow, QWidget):
 
     def open_search(self):
         self.search = Search_form()
+        x = self.x()
+        y = self.y()
+        w = self.width()
+        h = self.height()
+        self.search.move(x, y)
+        self.search.resize(w, h)
         self.search.show()
         self.close()
 
@@ -94,6 +99,12 @@ class Search_form(First_Wind):
     def back_activ(self):
         self.close()
         self.first = First_Wind()
+        x = self.x()
+        y = self.y()
+        w = self.width()
+        h = self.height()
+        self.first.move(x, y)
+        self.first.resize(w, h)
         self.first.show()
 
 
@@ -130,7 +141,7 @@ class Choose(First_Wind):
                 "Электричество и\nмагнетизм;",
                 "Колебания и волны;",
                 "Оптика;",
-                "Атомная и ядерная физика;",
+                "Атомная и\nядерная физика;",
             ]
         )
         self.themes.setFont(QtGui.QFont("Times", 9, QtGui.QFont.Bold))
@@ -153,7 +164,7 @@ class Choose(First_Wind):
         for el in [
             self.hide_mech,
             self.hide_thermal,
-            self.hide_electicity,
+            self.hide_elec_magn,
             self.hide_fluct,
             self.hide_atomic,
         ]:
@@ -180,51 +191,77 @@ class Choose(First_Wind):
         self.kinem.stateChanged.connect(self.hide_kin)
         self.kinem.setText("Кинематика")
 
-        self.all_m = QCheckBox(self)
-        self.all_m.move(80, 130)
-        self.all_m.stateChanged.connect(self.hide_kin)
-        self.all_m.setText("Выбрать все")
-
         self.kin_uni_lin_motion = QCheckBox(self)
-        self.kin_uni_lin_motion.move(60, 160)
+        self.kin_uni_lin_motion.move(80, 120)
         self.kin_uni_lin_motion.stateChanged.connect(self.hide_kin)
         self.kin_uni_lin_motion.setText(
             "Равномерное прямолинейное движение"
         )  # v = s/t and x = x0 + Vx * t
 
         self.kin_aver_speed = QCheckBox(self)
-        self.kin_aver_speed.move(60, 190)
+        self.kin_aver_speed.move(80, 150)
         self.kin_aver_speed.stateChanged.connect(self.hide_kin)
         self.kin_aver_speed.setText("Средняя и средняя путевая скорость")
         # vсрп = L1 + L2 +... / t1+t2+... and vср = s / t
 
         self.kin_uni_accel_motion = QCheckBox(self)
-        self.kin_uni_accel_motion.move(60, 220)
+        self.kin_uni_accel_motion.move(80, 180)
         self.kin_uni_accel_motion.stateChanged.connect(self.hide_kin)
         self.kin_uni_accel_motion.setText("Равноускоренное прямолинейное движение")
         # a = v - v0 / t; s = v0t + at^2/2; x = x0 + vx0 * t + ax * t^2/2
 
-        self.kin_uni_circ = QCheckBox(self)
-        self.kin_uni_circ.move(60, 250)
-        self.kin_uni_circ.stateChanged.connect(self.hide_kin)
-        self.kin_uni_circ.setText("Равномерное движение точки по окружности")
-
         self.kin_up = QCheckBox(self)
-        self.kin_up.move(60, 280)
+        self.kin_up.move(80, 210)
         self.kin_up.stateChanged.connect(self.hide_kin)
         self.kin_up.setText("Тело, брошенное вверх")
 
         self.kin_down = QCheckBox(self)
-        self.kin_down.move(60, 310)
+        self.kin_down.move(80, 240)
         self.kin_down.stateChanged.connect(self.hide_kin)
         self.kin_down.setText("Тело, брошенное вниз")
 
+        self.kin_uni_circ_lab = QLabel(self)
+        self.kin_uni_circ_lab.move(80, 285)
+        self.kin_uni_circ_lab.setText("Равномерное движение точки по окружности")
+        self.kin_uni_circ_lab.setStyleSheet("color: white")
+        self.kin_uni_circ_lab.setFont(QtGui.QFont("Times", 9))
+        self.kin_uni_circ_lab.adjustSize()
+        self.kin_uni_circ_lab.hide()
+
+        self.kin_uc_per = QCheckBox(self)
+        self.kin_uc_per.move(80, 310)
+        self.kin_uc_per.stateChanged.connect(self.hide_kin)
+        self.kin_uc_per.setText("Период")
+
+        self.kin_uc_freq = QCheckBox(self)
+        self.kin_uc_freq.move(80, 340)
+        self.kin_uc_freq.stateChanged.connect(self.hide_kin)
+        self.kin_uc_freq.setText("Частота")
+
+        self.kin_uc_lin = QCheckBox(self)
+        self.kin_uc_lin.move(80, 370)
+        self.kin_uc_lin.stateChanged.connect(self.hide_kin)
+        self.kin_uc_lin.setText("Линейная скорость")
+
+        self.kin_uc_ang = QCheckBox(self)
+        self.kin_uc_ang.move(80, 400)
+        self.kin_uc_ang.stateChanged.connect(self.hide_kin)
+        self.kin_uc_ang.setText("Угловая скорость")
+
+        self.kin_uc_accel = QCheckBox(self)
+        self.kin_uc_accel.move(80, 430)
+        self.kin_uc_accel.stateChanged.connect(self.hide_kin)
+        self.kin_uc_accel.setText("Центростремительное ускорение")
+
         self.sp_kin = [
-            self.all_m,
             self.kin_uni_lin_motion,
-            self.kin_uni_accel_motion,
-            self.kin_uni_circ,
             self.kin_aver_speed,
+            self.kin_uni_accel_motion,
+            self.kin_uc_per,
+            self.kin_uc_freq,
+            self.kin_uc_lin,
+            self.kin_uc_ang,
+            self.kin_uc_accel,
             self.kin_up,
             self.kin_down,
         ]
@@ -376,11 +413,19 @@ class Choose(First_Wind):
         self.am_of_heat.move(100, 80)
         self.am_of_heat.setText("Количество теплоты")
 
-        self.termo = QCheckBox(self)
-        self.termo.move(330, 90)
-        self.termo.setText("Энергия топлива")
+        self.oil = QCheckBox(self)
+        self.oil.move(100, 120)
+        self.oil.setText("Энергия топлива")
 
-        self.sp_thermal = [self.am_of_heat, self.termo]
+        self.melt = QCheckBox(self)
+        self.melt.move(100, 160)
+        self.melt.setText('Количество теплоты при плавлении/кристаллизации')
+
+        self.vapo = QCheckBox(self)
+        self.vapo.move(100, 200)
+        self.vapo.setText('Количество теплоты при парообразовании/конденсации')
+
+        self.sp_thermal = [self.am_of_heat, self.oil, self.melt, self.vapo]
         for i in range(len(self.sp_thermal)):
             self.sp_thermal[i].setStyleSheet("color: yellow")
             self.sp_thermal[i].stateChanged.connect(self.hide_thermal)
@@ -389,7 +434,85 @@ class Choose(First_Wind):
             self.sp_thermal[i].hide()
 
     def electicial(self):
-        pass
+        self.elec = QCheckBox(self)
+        self.elec.move(80, 90)
+        self.elec.setText('Электрические явления')
+        self.elec.stateChanged.connect(self.hide_elec)
+
+        self.el_current = QCheckBox(self)
+        self.el_current.move(80, 120)
+        self.el_current.setText('Сила тока')
+
+        self.el_volt = QCheckBox(self)
+        self.el_volt.move(80, 150)
+        self.el_volt.setText('Электрическое напряжение')
+
+        self.el_res = QCheckBox(self)
+        self.el_res.move(80, 180)
+        self.el_res.setText('Электрическое сопротивление')
+
+        self.el_om = QCheckBox(self)
+        self.el_om.move(80, 210)
+        self.el_om.setText('Закон Ома')
+
+        self.el_posled = QCheckBox(self)
+        self.el_posled.move(80, 240)
+        self.el_posled.setText('Последовательное соединение проводников')
+
+        self.el_paral = QCheckBox(self)
+        self.el_paral.move(80, 270)
+        self.el_paral.setText('Параллельное соединение проводников')
+
+        self.el_work = QCheckBox(self)
+        self.el_work.move(80, 300)
+        self.el_work.setText('Работа и мощность электрического тока')
+
+        self.el_jl_low = QCheckBox(self)
+        self.el_jl_low.move(80, 330)
+        self.el_jl_low.setText('Закон Джоуля-Ленца')
+
+        self.sp_elec = [self.el_current, self.el_volt, self.el_res, self.el_om, self.el_posled, self.el_paral,
+                        self.el_work, self.el_jl_low]
+
+        self.magn = QCheckBox(self)
+        self.magn.move(430, 90)
+        self.magn.setText('Электромагнитные явления')
+        self.magn.stateChanged.connect(self.hide_magn)
+
+        self.magn_ind = QCheckBox(self)
+        self.magn_ind.move(430, 120)
+        self.magn_ind.setText('Индукция магнитного поля')
+
+        self.magn_flow = QCheckBox(self)
+        self.magn_flow.move(430, 150)
+        self.magn_flow.setText('Магнитный поток')
+
+        self.magn_f_amp = QCheckBox(self)
+        self.magn_f_amp.move(430, 180)
+        self.magn_f_amp.setText('Сила Ампера')
+
+        self.magn_capas = QCheckBox(self)
+        self.magn_capas.move(430, 210)
+        self.magn_capas.setText('Электроемкость конденсатора')
+
+        self.sp_magn = [self.magn_ind, self.magn_flow, self.magn_f_amp, self.magn_capas]
+
+        self.sp_elec_magn = [self.elec, self.magn]
+
+        for i in range(len(self.sp_elec_magn)):
+            self.sp_elec_magn[i].setStyleSheet("color: yellow")
+            self.sp_elec_magn[i].setFont(QtGui.QFont("Times", 11, QtGui.QFont.Bold))
+            self.sp_elec_magn[i].adjustSize()
+            self.sp_elec_magn[i].hide()
+
+        self.sp_elec_magn2 = self.sp_elec + self.sp_magn
+
+        for i in range(len(self.sp_elec_magn2)):
+            self.sp_elec_magn2[i].setStyleSheet("color: gray")
+            self.sp_elec_magn2[i].stateChanged.connect(self.hide_elec_magn)
+            self.sp_elec_magn2[i].setFont(QtGui.QFont("Times", 10))
+            self.sp_elec_magn2[i].adjustSize()
+            self.sp_elec_magn2[i].hide()
 
     def fluctuation(self):
         pass
@@ -415,10 +538,12 @@ class Choose(First_Wind):
                 if el != self.kinem:
                     el.setChecked(False)
             self.kinem.setStyleSheet("color: gray")
+            self.kin_uni_circ_lab.show()
             for i in range(len(self.sp_kin)):
                 self.sp_kin[i].show()
         else:
             self.kinem.setStyleSheet("color: yellow")
+            self.kin_uni_circ_lab.hide()
             for i in range(len(self.sp_kin)):
                 self.sp_kin[i].hide()
 
@@ -431,8 +556,6 @@ class Choose(First_Wind):
             self.din_label_gravit.show()
             self.din_label_save.show()
             for i in range(len(self.sp_dinam)):
-                if self.sp_dinam[i].isChecked():
-                    self.set_checked.append(self.sp_dinam[i].text())
                 self.sp_dinam[i].show()
         else:
             self.dinam.setStyleSheet("color: yellow")
@@ -462,17 +585,57 @@ class Choose(First_Wind):
             self.base_concept.setStyleSheet("color: gray")
             for i in range(len(self.sp_bc)):
                 self.sp_bc[i].show()
+        else:
+            self.base_concept.setStyleSheet("color: yellow")
+            for i in range(len(self.sp_bc)):
+                self.sp_bc[i].hide()
 
     def hide_thermal(self):
         if self.themes.currentText() == "Тепловые явления;":
             for el in self.sp_thermal:
                 el.show()
+                if el.isChecked():
+                    el.setStyleSheet("color: gray")
+                else:
+                    el.setStyleSheet("color: yellow")
         else:
             for el in self.sp_thermal:
                 el.hide()
 
-    def hide_electicity(self):
-        pass
+    def hide_elec_magn(self):
+        if self.themes.currentText() == "Электричество и\nмагнетизм;":
+            for el in self.sp_elec_magn:
+                el.show()
+        else:
+            for el in self.sp_elec_magn:
+                el.setChecked(False)
+                el.hide()
+
+    def hide_elec(self):
+        if self.elec.isChecked():
+            for el in self.sp_elec_magn:
+                if el != self.elec:
+                    el.setChecked(False)
+            self.elec.setStyleSheet("color: gray")
+            for i in range(len(self.sp_elec)):
+                self.sp_elec[i].show()
+        else:
+            self.elec.setStyleSheet("color: yellow")
+            for i in range(len(self.sp_elec)):
+                self.sp_elec[i].hide()
+
+    def hide_magn(self):
+        if self.magn.isChecked():
+            for el in self.sp_elec_magn:
+                if el != self.magn:
+                    el.setChecked(False)
+            self.magn.setStyleSheet("color: gray")
+            for i in range(len(self.sp_magn)):
+                self.sp_magn[i].show()
+        else:
+            self.magn.setStyleSheet("color: yellow")
+            for i in range(len(self.sp_magn)):
+                self.sp_magn[i].hide()
 
     def hide_fluct(self):
         pass
@@ -485,6 +648,12 @@ class Choose(First_Wind):
 
     def form_s(self):
         self.f_show = Learn_formulas()
+        x = self.x()
+        y = self.y()
+        w = self.width()
+        h = self.height()
+        self.f_show.move(x, y)
+        self.f_show.resize(w, h)
         self.f_show.show()
         self.close()
 
@@ -497,6 +666,12 @@ class Choose(First_Wind):
     def back_activ(self):
         self.close()
         self.first = First_Wind()
+        x = self.x()
+        y = self.y()
+        w = self.width()
+        h = self.height()
+        self.first.move(x, y)
+        self.first.resize(w, h)
         self.first.show()
 
 
@@ -523,6 +698,12 @@ class Learn_formulas(First_Wind):
     def back_activ(self):
         self.close()
         self.choose = Choose()
+        x = self.x()
+        y = self.y()
+        w = self.width()
+        h = self.height()
+        self.choose.move(x, y)
+        self.choose.resize(w, h)
         self.choose.show()
 
 
