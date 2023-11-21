@@ -436,7 +436,7 @@ class Choose(First_Wind):
         for i in range(len(self.sp_thermal)):
             self.sp_thermal[i].setStyleSheet("color: yellow")
             self.sp_thermal[i].stateChanged.connect(self.hide_thermal)
-            self.sp_thermal[i].setFont(QtGui.QFont("Times", 10))
+            self.sp_thermal[i].setFont(QtGui.QFont("Times", 12))
             self.sp_thermal[i].adjustSize()
             self.sp_thermal[i].hide()
 
@@ -523,22 +523,22 @@ class Choose(First_Wind):
 
     def fluctuation(self):
         self.fl_per = QCheckBox(self)
-        self.fl_per.move(100, 80)
+        self.fl_per.move(80, 90)
         self.fl_per.setText("Период колебаний")
 
         self.fl_freq = QCheckBox(self)
-        self.fl_freq.move(100, 120)
+        self.fl_freq.move(80, 130)
         self.fl_freq.setText("Период колебаний")
 
         self.fl_velo = QCheckBox(self)
-        self.fl_velo.move(100, 160)
+        self.fl_velo.move(80, 170)
         self.fl_velo.setText("Скорость распространения волны")
 
         self.sp_fluct = [self.fl_per, self.fl_freq, self.fl_velo]
         for i in range(len(self.sp_fluct)):
             self.sp_fluct[i].setStyleSheet("color: yellow")
             self.sp_fluct[i].stateChanged.connect(self.hide_fluct)
-            self.sp_fluct[i].setFont(QtGui.QFont("Times", 10))
+            self.sp_fluct[i].setFont(QtGui.QFont("Times", 12))
             self.sp_fluct[i].adjustSize()
             self.sp_fluct[i].hide()
 
@@ -555,44 +555,34 @@ class Choose(First_Wind):
         self.op_lens_force.move(80, 170)
         self.op_lens_force.setText('Оптическая сила линзы')
 
-        self.sp_opt = [self.op_low_refl, self.op_low_refract, self.op_lens_force]
-        for i in range(len(self.sp_opt)):
-            self.sp_opt[i].setStyleSheet("color: yellow")
-            self.sp_opt[i].setFont(QtGui.QFont("Times", 10))
-            self.sp_opt[i].stateChanged.connect(self.hide_optics)
-            self.sp_opt[i].adjustSize()
-            self.sp_opt[i].hide()
-
-        self.op_form_lens = QCheckBox(self)
-        self.op_form_lens.move(80, 215)
-        self.op_form_lens.stateChanged.connect(self.hide_lens)
-        self.op_form_lens.setText('Формула тонкой лизны')
-        self.op_form_lens.setStyleSheet("color: yellow")
-        self.op_form_lens.setFont(QtGui.QFont("Times", 10, QtGui.QFont.Bold))
-        self.op_form_lens.adjustSize()
-        self.op_form_lens.hide()
-        self.sp_opt.append(self.op_form_lens)
+        self.op_form_lens_lab = QLabel(self)
+        self.op_form_lens_lab.move(80, 205)
+        self.op_form_lens_lab.setText('Формула тонкой лизны')
+        self.op_form_lens_lab.setStyleSheet("color: white")
+        self.op_form_lens_lab.setFont(QtGui.QFont("Times", 11))
+        self.op_form_lens_lab.adjustSize()
+        self.op_form_lens_lab.hide()
 
         self.op_form_d = QCheckBox(self)
-        self.op_form_d.move(80, 240)
+        self.op_form_d.move(80, 230)
         self.op_form_d.setText('Для d > F (собирающая линза)')
 
         self.op_form_f = QCheckBox(self)
-        self.op_form_f.move(80, 270)
+        self.op_form_f.move(80, 260)
         self.op_form_f.setText('Для d < F (собирающая линза)')
 
         self.op_form_diff = QCheckBox(self)
-        self.op_form_diff.move(80, 300)
+        self.op_form_diff.move(80, 290)
         self.op_form_diff.setText('Рассеивающая линза')
 
-        self.sp_lens = [self.op_form_diff, self.op_form_f, self.op_form_d]
-
-        for i in range(len(self.sp_lens)):
-            self.sp_lens[i].setStyleSheet("color: gray")
-            self.sp_lens[i].stateChanged.connect(self.hide_lens)
-            self.sp_lens[i].setFont(QtGui.QFont("Times", 10))
-            self.sp_lens[i].adjustSize()
-            self.sp_lens[i].hide()
+        self.sp_opt = [self.op_low_refl, self.op_low_refract, self.op_lens_force, self.op_form_diff,
+                       self.op_form_f, self.op_form_d]
+        for i in range(len(self.sp_opt)):
+            self.sp_opt[i].setStyleSheet("color: yellow")
+            self.sp_opt[i].setFont(QtGui.QFont("Times", 12))
+            self.sp_opt[i].stateChanged.connect(self.hide_optics)
+            self.sp_opt[i].adjustSize()
+            self.sp_opt[i].hide()
 
     def atom(self):
         self.at_massdef = QCheckBox(self)
@@ -603,42 +593,34 @@ class Choose(First_Wind):
         self.at_ener_con.move(80, 130)
         self.at_ener_con.setText("Энергия связи")
 
-        self.at_trans = QCheckBox(self)
-        self.at_trans.move(80, 170)
-        self.at_trans.setText("Радиоактивные превращения")
-        self.at_trans.setFont(QtGui.QFont("Times", 10, QtGui.QFont.Bold))
-        self.at_trans.setStyleSheet("color: yellow")
-        self.at_trans.stateChanged.connect(self.hide_trans)
-        self.at_trans.adjustSize()
-        self.at_trans.hide()
+        self.at_trans_lab = QLabel(self)
+        self.at_trans_lab.move(80, 165)
+        self.at_trans_lab.setText("Радиоактивные превращения")
+        self.at_trans_lab.setFont(QtGui.QFont("Times", 11))
+        self.at_trans_lab.setStyleSheet("color: white")
+        self.at_trans_lab.adjustSize()
+        self.at_trans_lab.hide()
 
         self.at_trans_a = QCheckBox(self)
-        self.at_trans_a.move(80, 210)
+        self.at_trans_a.move(80, 190)
         self.at_trans_a.setText("Альфа-распад")
 
         self.at_trans_b = QCheckBox(self)
-        self.at_trans_b.move(80, 250)
+        self.at_trans_b.move(80, 220)
         self.at_trans_b.setText("Бета-распад")
 
         self.at_trans_g = QCheckBox(self)
-        self.at_trans_g.move(80, 290)
+        self.at_trans_g.move(80, 250)
         self.at_trans_g.setText("Гамма-распад")
 
         self.sp_atom = [self.at_massdef, self.at_ener_con, self.at_trans_a, self.at_trans_b, self.at_trans_g]
 
-        for i in range(len(self.sp_atom[:2])):
-            self.sp_atom[:2][i].setStyleSheet("color: yellow")
-            self.sp_atom[:2][i].stateChanged.connect(self.hide_atomic)
-            self.sp_atom[:2][i].setFont(QtGui.QFont("Times", 10))
-            self.sp_atom[:2][i].adjustSize()
-            self.sp_atom[:2][i].hide()
-
-        for i in range(len(self.sp_atom[2:])):
-            self.sp_atom[2:][i].setStyleSheet("color: gray")
-            self.sp_atom[2:][i].stateChanged.connect(self.hide_trans)
-            self.sp_atom[2:][i].setFont(QtGui.QFont("Times", 10))
-            self.sp_atom[2:][i].adjustSize()
-            self.sp_atom[2:][i].hide()
+        for i in range(len(self.sp_atom)):
+            self.sp_atom[i].setStyleSheet("color: yellow")
+            self.sp_atom[i].stateChanged.connect(self.hide_atomic)
+            self.sp_atom[i].setFont(QtGui.QFont("Times", 12))
+            self.sp_atom[i].adjustSize()
+            self.sp_atom[i].hide()
 
     def hide_mech(self):
         if self.themes.currentText() == "Механика;":
@@ -768,6 +750,7 @@ class Choose(First_Wind):
 
     def hide_optics(self):
         if self.themes.currentText() == "Оптика;":
+            self.op_form_lens_lab.show()
             for el in self.sp_opt:
                 el.show()
                 if el.isChecked():
@@ -775,44 +758,23 @@ class Choose(First_Wind):
                 else:
                     el.setStyleSheet("color: yellow")
         else:
-            self.op_form_lens.setChecked(False)
+            self.op_form_lens_lab.hide()
             for el in self.sp_opt:
                 el.hide()
-
-    def hide_lens(self):
-        if self.op_form_lens.isChecked():
-            self.op_form_lens.setStyleSheet("color: gray")
-            for i in range(len(self.sp_lens)):
-                self.sp_lens[i].show()
-        else:
-            self.op_form_lens.setStyleSheet("color: yellow")
-            for i in range(len(self.sp_lens)):
-                self.sp_lens[i].hide()
 
     def hide_atomic(self):
         if self.themes.currentText() == "Атомная и\nядерная физика;":
-            self.at_trans.show()
-            for el in self.sp_atom[:2]:
+            self.at_trans_lab.show()
+            for el in self.sp_atom:
                 el.show()
                 if el.isChecked():
                     el.setStyleSheet("color: gray")
                 else:
                     el.setStyleSheet("color: yellow")
         else:
-            self.at_trans.hide()
-            self.at_trans.setChecked(False)
-            for el in self.sp_atom[:2]:
+            self.at_trans_lab.hide()
+            for el in self.sp_atom:
                 el.hide()
-
-    def hide_trans(self):
-        if self.at_trans.isChecked():
-            self.at_trans.setStyleSheet("color: gray")
-            for i in range(len(self.sp_atom[2:])):
-                self.sp_atom[2:][i].show()
-        else:
-            self.at_trans.setStyleSheet("color: yellow")
-            for i in range(len(self.sp_atom[2:])):
-                self.sp_atom[2:][i].hide()
 
     def form_s(self):
         self.f_show = Learn_formulas()
